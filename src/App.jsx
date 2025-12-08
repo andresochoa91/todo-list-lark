@@ -1,21 +1,19 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 
 function App() {
-	return (
-		<div>
-			<h1>Todo List</h1>
-			{React.createElement(
-				'h1',
-				{ style: { color: 'blue' } },
-				'Todo List'
-			)}
-			<TodoForm />
-			<TodoList />
-		</div>
-	);
+  const [newTodo, setNewTodo] = useState('Example text');
+
+  return (
+    <div>
+      <h1>Todo List</h1>
+      <TodoForm />
+      <p>{newTodo}</p>
+      <TodoList />
+    </div>
+  );
 }
 
 export default App;

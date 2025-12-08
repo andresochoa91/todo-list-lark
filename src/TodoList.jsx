@@ -1,10 +1,11 @@
 import { todos } from './App';
+import TodoListItem from './TodoListItem';
 
 function TodoList() {
   return (
     <ul>
       {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
+        <TodoListItem todo={todo} key={todo.id} />
       ))}
     </ul>
   );
