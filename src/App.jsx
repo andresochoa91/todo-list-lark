@@ -28,8 +28,6 @@ function App() {
   const [sortDirection, setSortDirections] = useState('desc');
   const [queryString, setQueryString] = useState('');
 
-  // const encodedUrl = encodeUrl({ sortField, sortDirection });
-
   useEffect(() => {
     const fetchTodos = async () => {
       setIsLoading(true);
