@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
+import Styles from './TodoListItem.module.css';
+import styled from 'styled-components';
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,8 +28,12 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
     setWorkingTitle(todo.title);
   }, [todo]);
 
+  const StyledListItem = styled.li`
+    padding-top: 2px;
+  `;
+
   return (
-    <li>
+    <StyledListItem className={`${Styles.padding}`}>
       <form onSubmit={handleUpdate}>
         {isEditing ? (
           <>
@@ -50,7 +56,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
           </>
         )}
       </form>
-    </li>
+    </StyledListItem>
   );
 }
 
