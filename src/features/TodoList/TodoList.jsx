@@ -1,10 +1,11 @@
 import TodoListItem from './TodoListItem';
+import Style from './TodoList.module.css';
 
 function TodoList({ todoList, onCompleteTodo, onUpdateTodo }) {
   const filteredTodoList = todoList.filter((todo) => todo.isCompleted !== true);
 
   return filteredTodoList.length ? (
-    <ul>
+    <ul className={`${Style.padding} ${Style.noBullet}`}>
       {filteredTodoList.map((todo) => (
         <TodoListItem
           todo={todo}

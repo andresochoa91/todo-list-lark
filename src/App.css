@@ -1,0 +1,25 @@
+#root {
+  background-color: aquamarine;
+}
+
+h1,
+h2,
+h3,
+p {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: red;
+}
+
+button {
+  font-family: 'Courier New', monospace;
+  background-color: red;
+  color: white;
+}
+
+input {
+  background-color: beige;
+}
+
+select {
+  background-color: bisque;
+}

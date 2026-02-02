@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
+import Styles from './App.module.css';
 import TodoForm from './features/TodoForm';
 import TodoList from './features/TodoList/TodoList';
 import TodosViewForm from './features/TodosViewForm';
@@ -247,41 +248,43 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <TodoForm
-        onAddTodo={handleAddTodo}
-        workingTodo={workingTodo}
-        setWorkingTodo={setWorkingTodo}
-        isSaving={isSaving}
-      />
-      {isLoading ? (
-        <p>Todo list loading...</p>
-      ) : (
-        <>
-          <TodoList
-            todoList={todoList}
-            onCompleteTodo={completeTodo}
-            onUpdateTodo={updateTodo}
-          />
-          {errorMessage && (
-            <>
-              <hr />
-              <p>{errorMessage}</p>
-              <button onClick={() => setErrorMessage('')}>dismiss</button>
-            </>
-          )}
-        </>
-      )}
-      <hr />
-      <TodosViewForm
-        sortDirection={sortDirection}
-        setSortDirection={setSortDirections}
-        sortField={sortField}
-        setSortField={setSortField}
-        queryString={queryString}
-        setQueryString={setQueryString}
-      />
+    <div className={`${Styles.center} ${Styles.backgroundImage}`}>
+      <div>
+        <h1>Todo List</h1>
+        <TodoForm
+          onAddTodo={handleAddTodo}
+          workingTodo={workingTodo}
+          setWorkingTodo={setWorkingTodo}
+          isSaving={isSaving}
+        />
+        {isLoading ? (
+          <p>Todo list loading...</p>
+        ) : (
+          <>
+            <TodoList
+              todoList={todoList}
+              onCompleteTodo={completeTodo}
+              onUpdateTodo={updateTodo}
+            />
+            {errorMessage && (
+              <div className={Styles.border}>
+                <hr />
+                <p>{errorMessage}</p>
+                <button onClick={() => setErrorMessage('')}>dismiss</button>
+              </div>
+            )}
+          </>
+        )}
+        <hr />
+        <TodosViewForm
+          sortDirection={sortDirection}
+          setSortDirection={setSortDirections}
+          sortField={sortField}
+          setSortField={setSortField}
+          queryString={queryString}
+          setQueryString={setQueryString}
+        />
+      </div>
     </div>
   );
 }
