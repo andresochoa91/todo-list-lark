@@ -3,6 +3,10 @@ import TextInputWithLabel from '../../shared/TextInputWithLabel';
 import Styles from './TodoListItem.module.css';
 import styled from 'styled-components';
 
+const StyledListItem = styled.li`
+  padding-top: 2px;
+`;
+
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
@@ -27,10 +31,6 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   useEffect(() => {
     setWorkingTitle(todo.title);
   }, [todo]);
-
-  const StyledListItem = styled.li`
-    padding-top: 2px;
-  `;
 
   return (
     <StyledListItem className={`${Styles.padding}`}>
