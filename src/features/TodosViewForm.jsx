@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { ExampleContext } from '../AppContext';
 
 const TodosViewForm = ({
   sortDirection,
   setSortDirection,
   sortField,
   setSortField,
-  queryString,
-  setQueryString,
 }) => {
+  const { queryString, setQueryString } = useContext(ExampleContext);
   const [localQueryString, setLocalQueryString] = useState(queryString);
 
   useEffect(() => {
