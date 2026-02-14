@@ -16,6 +16,8 @@ import {
   initialState as initialTodosState,
 } from './reducers/todos.reducer';
 import { ExampleContext } from './AppContext';
+import { NavLink, Route, Routes } from 'react-router';
+import { useLocation } from 'react-router';
 
 function App() {
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
@@ -25,6 +27,9 @@ function App() {
   const [sortField, setSortField] = useState('createdTime');
   const [sortDirection, setSortDirections] = useState('desc');
   const { queryString } = useContext(ExampleContext);
+  const [title, setTitle] = useState('Todo list in context yay');
+
+  const location = useLocation();
 
   const encodeUrl = useCallback(() => {
     let searchQuery = '';
@@ -191,40 +196,70 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    const titles = {
+      '/': 'Todo List',
+      '/about': 'About',
+    };
+
+    setTitle(titles[location.pathname] ?? 'Not found');
+  }, [location.pathname]);
+
   return (
     <div className={`${Styles.center} ${Styles.backgroundImage}`}>
       <div>
-        <h1>Todo List</h1>
-        <TodoForm onAddTodo={handleAddTodo} isSaving={todosState.isSaving} />
-        {todosState.isLoading ? (
-          <p>Todo list loading...</p>
-        ) : (
-          <>
-            <TodoList
-              todoList={todosState.todoList}
-              onCompleteTodo={completeTodo}
-              onUpdateTodo={updateTodo}
-            />
-            {todosState.errorMessage && (
-              <div className={Styles.border}>
+        <nav>
+          <NavLink to="/">Home</NavLink>
+          <span> </span>
+          <NavLink to="/about">About</NavLink>
+        </nav>
+        <h1>{title}</h1>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <TodoForm
+                  onAddTodo={handleAddTodo}
+                  isSaving={todosState.isSaving}
+                />
+                {todosState.isLoading ? (
+                  <p>Todo list loading...</p>
+                ) : (
+                  <>
+                    <TodoList
+                      todoList={todosState.todoList}
+                      onCompleteTodo={completeTodo}
+                      onUpdateTodo={updateTodo}
+                    />
+                    {todosState.errorMessage && (
+                      <div className={Styles.border}>
+                        <hr />
+                        <p>{todosState.errorMessage}</p>
+                        <button
+                          onClick={() =>
+                            dispatch({ type: todoActions.clearError })
+                          }
+                        >
+                          dismiss
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
                 <hr />
-                <p>{todosState.errorMessage}</p>
-                <button
-                  onClick={() => dispatch({ type: todoActions.clearError })}
-                >
-                  dismiss
-                </button>
-              </div>
-            )}
-          </>
-        )}
-        <hr />
-        <TodosViewForm
-          sortDirection={sortDirection}
-          setSortDirection={setSortDirections}
-          sortField={sortField}
-          setSortField={setSortField}
-        />
+                <TodosViewForm
+                  sortDirection={sortDirection}
+                  setSortDirection={setSortDirections}
+                  sortField={sortField}
+                  setSortField={setSortField}
+                />
+              </>
+            }
+          />
+          <Route path="/about" element={<>This is the about page</>} />
+          <Route path="*" element={<>Element not found</>} />
+        </Routes>
       </div>
     </div>
   );
